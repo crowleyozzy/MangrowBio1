@@ -41,26 +41,13 @@ export default function About() {
           <div className="section-header center">
             <div className="eyebrow">Leadership</div>
             <h2>Our Team</h2>
-            <p>Former agency scientists, manufacturing executives, and biotech operators.</p>
+            <p> agency scientists, manufacturing executives, and biotech operators.</p>
           </div>
           <div className="team-grid" style={{ marginTop: "2.5rem" }}>
             <div className="team-card">
-              <div className="team-avatar" style={{ background: "var(--navy)" }}>DR</div>
-              <h4>Dr. Rajiv Mehta</h4>
+              <div className="team-avatar" style={{ background: "var(--navy)" }}>SK</div>
+              <h4>Dr. Sasikumar Koyadan</h4>
               <p style={{ color: "var(--teal)", fontWeight: 600, fontSize: "0.84rem", marginBottom: "4px" }}>Managing Director</p>
-              <p>Former Senior Reviewer, CDSCO. 22 years in pharma regulatory science.</p>
-            </div>
-            <div className="team-card">
-              <div className="team-avatar" style={{ background: "var(--teal)" }}>SC</div>
-              <h4>Dr. Sarah Chen</h4>
-              <p style={{ color: "var(--teal)", fontWeight: 600, fontSize: "0.84rem", marginBottom: "4px" }}>Head of CMC Practice</p>
-              <p>PhD Pharmaceutical Sciences. Former VP CMC at Pfizer. 18 years experience.</p>
-            </div>
-            <div className="team-card">
-              <div className="team-avatar" style={{ background: "#1B5C87" }}>AK</div>
-              <h4>Arjun Krishnan</h4>
-              <p style={{ color: "var(--teal)", fontWeight: 600, fontSize: "0.84rem", marginBottom: "4px" }}>Head of Manufacturing</p>
-              <p>Former VP Operations, Biocon. Specialist in biologics scale-up and GMP compliance.</p>
             </div>
           </div>
         </div>
