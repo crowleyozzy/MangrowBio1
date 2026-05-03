@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String   @id @default(uuid())
+  name          String?
+  email         String   @unique
+  password_hash String
+  created_at    DateTime @default(now())
+
+  @@index([created_at])
+}
+
+model Contact {
+  id               String   @id @default(uuid())
+  name             String
+  company          String?
+  email            String
+  service_required String?
+  message          String
+  status           String   @default("pending") // pending, contacted
+  created_at       DateTime @default(now())
+
+  @@index([email])
+  @@index([status, created_at])
+}
+
+model CaseStudy {
+  id         String   @id @default(uuid())
+  title      String
+  industry   String?
+  challenge  String
+  solution   String
+  results    String
+  metrics    String?
+  created_at DateTime @default(now())
+
+  @@index([industry])
+  @@index([created_at])
+}
+
+model BlogPost {
+  id             String   @id @default(uuid())
+  title          String
+  slug           String   @unique
+  content        String
+  category       String?
+  author         String?
+  featured_image String?
+  created_at     DateTime @default(now())
+
+  @@index([category])
+  @@index([created_at])
+}

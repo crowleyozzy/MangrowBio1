@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PharmaAxis Consulting — Precision. Compliance. Scale.</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B3C5D;
+    --teal: #00A6A6;
+    --teal-light: #00C4C4;
+    --teal-pale: #E0F7F7;
+    --bg: #FFFFFF;
+    --bg-alt: #F5F7FA;
+    --text: #0F1E2A;
+    --text-muted: #5A7080;
+    --text-light: #8FA4B0;
+    --border: rgba(11,60,93,0.1);
+    --border-strong: rgba(11,60,93,0.2);
+    --shadow-sm: 0 2px 12px rgba(11,60,93,0.06);
+    --shadow-md: 0 8px 32px rgba(11,60,93,0.10);
+    --shadow-lg: 0 20px 60px rgba(11,60,93,0.14);
+    --radius: 10px;
+    --radius-lg: 16px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--bg); overflow-x: hidden; line-height: 1.6; }
+  a { text-decoration: none; color: inherit; }
+
+  h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.15; font-weight: 400; }
+  h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.7rem, 3.5vw, 2.5rem); line-height: 1.2; font-weight: 400; }
+  h3 { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; }
+  p { line-height: 1.75; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+  .section { padding: 100px 0; }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.95rem; cursor: pointer; border: none; transition: all 0.22s ease; white-space: nowrap; }
+  .btn-primary { background: var(--navy); color: #fff; box-shadow: 0 4px 16px rgba(11,60,93,0.22); }
+  .btn-primary:hover { background: #0d4a72; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(11,60,93,0.28); }
+  .btn-outline { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
+  .btn-outline:hover { background: var(--navy); color: #fff; }
+  .btn-ghost { background: transparent; color: var(--text-muted); border: 1.5px solid var(--border-strong); }
+  .btn-ghost:hover { border-color: var(--navy); color: var(--navy); }
+  .btn-white { background: #fff; color: var(--navy); }
+  .btn-white:hover { background: rgba(255,255,255,0.9); transform: translateY(-1px); }
+
+  .eyebrow { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .eyebrow::before { content: ''; display: block; width: 24px; height: 2px; background: var(--teal); }
+
+  /* NAVBAR */
+  .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 2rem; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid transparent; transition: border-color 0.3s, box-shadow 0.3s; }
+  .navbar.scrolled { border-bottom-color: var(--border); box-shadow: var(--shadow-sm); }
+  .navbar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .navbar-logo { display: flex; align-items: center; gap: 10px; font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--navy); cursor: pointer; }
+  .logo-mark { width: 36px; height: 36px; background: var(--navy); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .navbar-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+  .navbar-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: color 0.2s; cursor: pointer; }
+  .navbar-links a:hover { color: var(--navy); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--navy); }
+
+  /* HERO */
+  .hero { padding-top: 72px; min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; background: var(--bg); }
+  .hero-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(11,60,93,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(11,60,93,0.03) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; width: 100%; padding: 80px 0; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--teal-pale); border: 1px solid rgba(0,166,166,0.2); border-radius: 100px; padding: 6px 14px; font-size: 0.75rem; font-weight: 700; color: #007A7A; font-family: 'Space Mono', monospace; letter-spacing: 0.05em; margin-bottom: 1.5rem; }
+  .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:0.5; transform:scale(1.4); } }
+  .hero-h1 { margin-bottom: 1.5rem; color: var(--navy); }
+  .hero-h1 em { font-style: italic; color: var(--teal); }
+  .hero-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 480px; margin-bottom: 2.5rem; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+  .hero-stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--navy); line-height: 1; }
+  .hero-stat-label { font-size: 0.77rem; color: var(--text-muted); font-weight: 500; margin-top: 3px; }
+  .hero-visual { display: flex; align-items: center; justify-content: center; height: 480px; position: relative; }
+  .molecule-wrap { animation: float 6s ease-in-out infinite; }
+  @keyframes float { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-18px); } }
+  .hero-glow { position: absolute; width: 360px; height: 360px; background: radial-gradient(circle, rgba(0,166,166,0.07) 0%, transparent 70%); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; }
+
+  /* TRUST */
+  .trust-strip { background: var(--navy); padding: 26px 0; }
+  .trust-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; gap: 3rem; flex-wrap: wrap; }
+  .trust-label { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); flex-shrink: 0; }
+  .trust-logos { display: flex; gap: 2.5rem; align-items: center; flex-wrap: wrap; }
+  .trust-logo-item { font-family: 'DM Serif Display', serif; font-size: 0.95rem; color: rgba(255,255,255,0.45); font-style: italic; letter-spacing: -0.01em; }
+
+  /* SERVICES GRID */
+  .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3.5rem; }
+  .service-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; transition: all 0.3s ease; position: relative; overflow: hidden; }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--navy), var(--teal)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+  .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: transparent; }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon { width: 48px; height: 48px; border-radius: 10px; background: var(--teal-pale); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; }
+  .service-icon svg { width: 22px; height: 22px; stroke: var(--teal); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .service-card h3 { color: var(--navy); margin-bottom: 0.6rem; }
+  .service-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+
+  /* DIFF */
+  .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .diff-list { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+  .diff-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .diff-icon-wrap { width: 44px; height: 44px; flex-shrink: 0; background: var(--navy); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+  .diff-icon-wrap svg { width: 20px; height: 20px; stroke: #fff; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .diff-item-text h4 { font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .diff-item-text p { font-size: 0.87rem; color: var(--text-muted); }
+
+  /* PROCESS */
+  .process-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; margin-top: 3.5rem; position: relative; }
+  .process-steps::before { content: ''; position: absolute; top: 32px; left: 12.5%; right: 12.5%; height: 1px; background: linear-gradient(90deg, var(--navy), var(--teal)); z-index: 0; }
+  .process-step { text-align: center; padding: 0 1rem; position: relative; z-index: 1; }
+  .step-num { width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: #fff; }
+  .sn1 { background: var(--navy); }
+  .sn2 { background: #1B5C87; }
+  .sn3 { background: #0D7A8A; }
+  .sn4 { background: var(--teal); }
+  .process-step h3 { color: var(--navy); margin-bottom: 0.5rem; }
+  .process-step p { font-size: 0.85rem; color: var(--text-muted); }
+
+  /* CASE CARDS */
+  .case-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem; }
+  .case-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.3s ease; }
+  .case-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: transparent; }
+  .case-header { padding: 1.75rem 1.75rem 0; }
+  .case-tag { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: var(--teal-pale); color: #007A7A; margin-bottom: 1rem; font-family: 'Space Mono', monospace; }
+  .case-card h3 { font-size: 0.97rem; color: var(--navy); margin-bottom: 1rem; line-height: 1.4; }
+  .case-body { padding: 0 1.75rem 1.75rem; }
+  .case-row { margin-bottom: 0.75rem; }
+  .case-row-label { font-size: 0.68rem; font-family: 'Space Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); margin-bottom: 2px; }
+  .case-row-text { font-size: 0.86rem; color: var(--text-muted); }
+  .case-metric { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border); font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--teal); display: flex; align-items: baseline; gap: 8px; }
+  .case-metric span { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; color: var(--text-muted); }
+  .case-link { display: flex; align-items: center; gap: 6px; font-size: 0.84rem; font-weight: 600; color: var(--navy); margin-top: 1rem; transition: gap 0.2s; cursor: pointer; }
+  .case-link:hover { gap: 10px; }
+
+  /* CTA */
+  .cta-section { background: linear-gradient(135deg, var(--navy) 0%, #0D4A6B 60%, #0A3D5C 100%); position: relative; overflow: hidden; }
+  .cta-bg-dots { position: absolute; inset: 0; opacity: 0.04; background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 32px 32px; }
+  .cta-inner { text-align: center; position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+  .cta-inner h2 { color: #fff; margin-bottom: 1rem; }
+  .cta-inner p { color: rgba(255,255,255,0.65); margin-bottom: 2rem; }
+  .cta-actions { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+  /* SECTION HEADER */
+  .section-header { max-width: 560px; }
+  .section-header.center { max-width: 600px; margin: 0 auto; text-align: center; }
+  .section-header.center .eyebrow { justify-content: center; }
+  .section-header .eyebrow { margin-bottom: 0.75rem; }
+  .section-header h2 { color: var(--navy); margin-bottom: 0.75rem; }
+  .section-header p { color: var(--text-muted); }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-stats { background: var(--bg-alt); border-radius: var(--radius-lg); padding: 2.5rem; border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .about-stat { background: var(--bg); border-radius: var(--radius); padding: 1.5rem; border: 1px solid var(--border); text-align: center; }
+  .about-stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--navy); }
+  .about-stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
+  .team-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2rem; }
+  .team-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.75rem; text-align: center; transition: all 0.3s; }
+  .team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .team-avatar { width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: #fff; }
+  .team-card h4 { font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+  .team-card p { font-size: 0.82rem; color: var(--text-muted); }
+
+  /* SERVICES PAGE */
+  .service-detail { padding: 60px 0; border-bottom: 1px solid var(--border); }
+  .service-detail:last-child { border-bottom: none; }
+  .sdg { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .sdg.rev { direction: rtl; }
+  .sdg.rev > * { direction: ltr; }
+  .service-detail h2 { font-size: 1.8rem; color: var(--navy); margin: 1rem 0 0.75rem; }
+  .service-detail p { color: var(--text-muted); margin-bottom: 1.5rem; }
+  .sbullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .sbullets li { display: flex; gap: 10px; font-size: 0.88rem; color: var(--text-muted); padding: 10px 12px; background: var(--bg-alt); border-radius: var(--radius); }
+  .sbullets li::before { content: '→'; color: var(--teal); font-weight: 700; flex-shrink: 0; }
+
+  /* INSIGHTS */
+  .feat-article { background: var(--bg-alt); border-radius: var(--radius-lg); padding: 2.5rem; border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 3rem; }
+  .feat-tag { background: var(--navy); color: #fff; display: inline-block; padding: 4px 12px; border-radius: 100px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-family: 'Space Mono', monospace; margin-bottom: 1rem; }
+  .feat-article h2 { font-size: 1.6rem; color: var(--navy); margin-bottom: 1rem; }
+  .feat-article p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.93rem; }
+  .feat-meta { font-size: 0.78rem; color: var(--text-light); font-family: 'Space Mono', monospace; }
+  .blog-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+  .blog-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.3s; }
+  .blog-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: transparent; }
+  .blog-img { height: 150px; display: flex; align-items: center; justify-content: center; }
+  .blog-body { padding: 1.5rem; }
+  .blog-tag { font-size: 0.67rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); font-family: 'Space Mono', monospace; margin-bottom: 0.5rem; }
+  .blog-card h3 { font-size: 0.93rem; color: var(--navy); margin-bottom: 0.5rem; line-height: 1.4; }
+  .blog-card p { font-size: 0.81rem; color: var(--text-muted); }
+  .blog-meta { font-size: 0.73rem; color: var(--text-light); margin-top: 0.75rem; font-family: 'Space Mono', monospace; }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
+  .cdetail { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.5rem; }
+  .cdetail-icon { width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px; background: var(--teal-pale); display: flex; align-items: center; justify-content: center; }
+  .cdetail-icon svg { width: 20px; height: 20px; stroke: var(--teal); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .cdetail h4 { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 2px; }
+  .cdetail p { font-size: 0.93rem; color: var(--navy); font-weight: 500; }
+  .cform { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-sm); }
+  .fg { margin-bottom: 1.25rem; }
+  .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  label { display: block; font-size: 0.81rem; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+  input[type=text], input[type=email], select, textarea { width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text); background: var(--bg-alt); transition: border-color 0.2s; outline: none; }
+  input:focus, select:focus, textarea:focus { border-color: var(--teal); background: var(--bg); }
+  textarea { height: 120px; resize: vertical; }
+  select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A7080' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+
+  /* PAGE HEADER */
+  .page-hero { padding-top: 72px; background: var(--bg-alt); padding-bottom: 60px; }
+  .page-hero-inner { padding-top: 60px; }
+
+  /* FOOTER */
+  .footer { background: var(--navy); padding: 80px 0 32px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+  .footer-logo .lm { width: 36px; height: 36px; background: var(--teal); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .footer-logo span { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: #fff; }
+  .footer-tagline { font-size: 0.86rem; color: rgba(255,255,255,0.45); line-height: 1.7; max-width: 240px; }
+  .footer-col h4 { font-size: 0.72rem; font-family: 'Space Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1.25rem; }
+  .flinks { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .flinks a { font-size: 0.87rem; color: rgba(255,255,255,0.5); transition: color 0.2s; cursor: pointer; }
+  .flinks a:hover { color: rgba(255,255,255,0.9); }
+  .fci { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 0.75rem; }
+  .fci svg { width: 15px; height: 15px; stroke: var(--teal); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 2px; }
+  .fci span { font-size: 0.84rem; color: rgba(255,255,255,0.5); }
+  .footer-bottom { padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+  .social-link { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .social-link:hover { border-color: var(--teal); background: rgba(0,166,166,0.1); }
+  .social-link svg { width: 15px; height: 15px; fill: rgba(255,255,255,0.5); }
+
+  /* WHATSAPP */
+  .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.4); transition: all 0.2s; cursor: pointer; }
+  .wa-float:hover { transform: scale(1.1); }
+  .wa-float svg { width: 28px; height: 28px; fill: #fff; }
+
+  /* PAGE ROUTING */
+  .page-section { display: none; }
+  .page-section.active { display: block; }
+
+  /* FADE */
+  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.vis { opacity: 1; transform: translateY(0); }
+
+  /* LIFECYCLE DIAGRAM */
+  .lifecycle-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-md); }
+  .lifecycle-step { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; position: relative; }
+  .lc-connector { position: absolute; left: 20px; top: -10px; width: 2px; height: 20px; background: linear-gradient(to bottom, var(--navy), var(--teal)); }
+  .lc-num { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1; font-family: 'Space Mono', monospace; font-size: 0.62rem; color: #fff; font-weight: 700; }
+  .lc-title { font-weight: 600; color: var(--navy); font-size: 0.9rem; }
+  .lc-sub { font-size: 0.76rem; color: var(--text-muted); }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    .hero-grid, .diff-grid, .about-grid, .contact-grid, .sdg, .feat-article { grid-template-columns: 1fr; }
+    .hero-visual { height: 300px; }
+    .services-grid, .case-grid, .team-grid, .blog-grid { grid-template-columns: 1fr 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .process-steps::before { display: none; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .navbar-links, .nb-cta-btn { display: none; }
+    .hamburger { display: flex; }
+    .sdg.rev { direction: ltr; }
+  }
+  @media (max-width: 640px) {
+    .services-grid, .case-grid, .team-grid, .blog-grid, .process-steps, .footer-grid { grid-template-columns: 1fr; }
+    .frow { grid-template-columns: 1fr; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .section { padding: 60px 0; }
+    .hero-stats { gap: 1.5rem; }
+    .trust-logos { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <div class="navbar-logo" onclick="go('home')">
+      <div class="logo-mark">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="4" r="2.5" fill="#fff"/>
+          <circle cx="4" cy="14" r="2.5" fill="#fff"/>
+          <circle cx="16" cy="14" r="2.5" fill="#fff"/>
+          <line x1="10" y1="6.5" x2="4" y2="11.5" stroke="#00A6A6" stroke-width="1.5"/>
+          <line x1="10" y1="6.5" x2="16" y2="11.5" stroke="#00A6A6" stroke-width="1.5"/>
+          <line x1="4" y1="14" x2="16" y2="14" stroke="#00A6A6" stroke-width="1.5"/>
+        </svg>
+      </div>
+      PharmaAxis
+    </div>
+    <ul class="navbar-links">
+      <li><a onclick="go('home')">Home</a></li>
+      <li><a onclick="go('about')">About</a></li>
+      <li><a onclick="go('services')">Services</a></li>
+      <li><a onclick="go('cases')">Case Studies</a></li>
+      <li><a onclick="go('insights')">Insights</a></li>
+      <li><a onclick="go('contact')">Contact</a></li>
+    </ul>
+    <div style="display:flex; align-items:center; gap:1rem;">
+      <button class="btn btn-primary nb-cta-btn" onclick="go('contact')">Book Consultation</button>
+      <div class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mob-menu" style="display:none; position:fixed; top:72px; left:0; right:0; background:#fff; border-bottom:1px solid var(--border); z-index:999; padding:1.5rem 2rem;">
+  <ul style="list-style:none; display:flex; flex-direction:column; gap:1rem; margin-bottom:1.5rem;">
+    <li><a onclick="go('home');toggleMob()" style="font-weight:500; color:var(--navy); cursor:pointer;">Home</a></li>
+    <li><a onclick="go('about');toggleMob()" style="font-weight:500; color:var(--navy); cursor:pointer;">About</a></li>
+    <li><a onclick="go('services');toggleMob()" style="font-weight:500; color:var(--navy); cursor:pointer;">Services</a></li>
+    <li><a onclick="go('cases');toggleMob()" style="font-weight:500; color:var(--navy); cursor:pointer;">Case Studies</a></li>
+    <li><a onclick="go('insights');toggleMob()" style="font-weight:500; color:var(--navy); cursor:pointer;">Insights</a></li>
+    <li><a onclick="go('contact');toggleMob()" style="font-weight:500; color:var(--navy); cursor:pointer;">Contact</a></li>
+  </ul>
+  <button class="btn btn-primary" style="width:100%" onclick="go('contact');toggleMob()">Book Consultation</button>
+</div>
+
+<!-- ═══════════ HOME ═══════════ -->
+<div id="p-home" class="page-section active">
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-grid">
+        <div class="fade-up">
+          <div class="hero-badge"><div class="dot"></div>End-to-End Life Sciences Consulting</div>
+          <h1 class="hero-h1">Driving <em>Precision,</em> Compliance, and Scale in Pharma &amp; Biotech</h1>
+          <p class="hero-sub">From regulatory strategy to manufacturing scale-up — expert guidance across the full pharmaceutical lifecycle.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="go('contact')">Book Consultation →</button>
+            <button class="btn btn-outline" onclick="go('services')">Explore Services</button>
+          </div>
+          <div class="hero-stats">
+            <div><div class="hero-stat-num">200+</div><div class="hero-stat-label">Projects Delivered</div></div>
+            <div><div class="hero-stat-num">40+</div><div class="hero-stat-label">Countries Served</div></div>
+            <div><div class="hero-stat-num">18yr</div><div class="hero-stat-label">Industry Experience</div></div>
+          </div>
+        </div>
+        <div class="hero-visual fade-up" style="transition-delay:0.2s">
+          <div class="hero-glow"></div>
+          <div class="molecule-wrap">
+            <svg viewBox="0 0 420 420" width="420" height="420" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="210" cy="210" r="180" stroke="rgba(11,60,93,0.05)" stroke-width="1" stroke-dasharray="4 8"/>
+              <circle cx="210" cy="210" r="140" stroke="rgba(0,166,166,0.07)" stroke-width="1" stroke-dasharray="2 6"/>
+              <circle cx="210" cy="210" r="100" stroke="rgba(11,60,93,0.06)" stroke-width="1"/>
+              <line x1="210" y1="210" x2="120" y2="130" stroke="#00A6A6" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="210" y1="210" x2="310" y2="130" stroke="#00A6A6" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="210" y1="210" x2="310" y2="300" stroke="rgba(11,60,93,0.4)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="210" y1="210" x2="110" y2="300" stroke="rgba(11,60,93,0.4)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="210" y1="210" x2="210" y2="90" stroke="rgba(0,166,166,0.5)" stroke-width="2" stroke-linecap="round"/>
+              <line x1="120" y1="130" x2="60" y2="70" stroke="rgba(11,60,93,0.2)" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="120" y1="130" x2="60" y2="165" stroke="rgba(11,60,93,0.2)" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="310" y1="130" x2="370" y2="70" stroke="rgba(0,166,166,0.25)" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="310" y1="130" x2="370" y2="165" stroke="rgba(0,166,166,0.2)" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="310" y1="300" x2="355" y2="348" stroke="rgba(11,60,93,0.15)" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="110" y1="300" x2="65" y2="348" stroke="rgba(11,60,93,0.15)" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="210" cy="210" r="28" fill="#0B3C5D"/>
+              <circle cx="210" cy="210" r="22" fill="#0D4A72"/>
+              <text x="210" y="217" text-anchor="middle" fill="white" font-size="13" font-family="DM Serif Display, serif">Rx</text>
+              <circle cx="120" cy="130" r="18" fill="#00A6A6"/>
+              <text x="120" y="136" text-anchor="middle" fill="white" font-size="10" font-family="Space Mono, monospace" font-weight="700">GMP</text>
+              <circle cx="310" cy="130" r="18" fill="#0B3C5D"/>
+              <text x="310" y="136" text-anchor="middle" fill="white" font-size="10" font-family="Space Mono, monospace" font-weight="700">R&amp;D</text>
+              <circle cx="310" cy="300" r="16" fill="#00A6A6" fill-opacity="0.8"/>
+              <text x="310" y="305" text-anchor="middle" fill="white" font-size="9" font-family="Space Mono, monospace">CMC</text>
+              <circle cx="110" cy="300" r="16" fill="#0B3C5D" fill-opacity="0.7"/>
+              <text x="110" y="305" text-anchor="middle" fill="white" font-size="9" font-family="Space Mono, monospace">QA</text>
+              <circle cx="210" cy="90" r="14" fill="rgba(0,166,166,0.65)"/>
+              <text x="210" y="95" text-anchor="middle" fill="white" font-size="9" font-family="Space Mono, monospace">RA</text>
+              <circle cx="60" cy="70" r="9" fill="rgba(0,166,166,0.28)"/>
+              <circle cx="60" cy="165" r="9" fill="rgba(11,60,93,0.28)"/>
+              <circle cx="370" cy="70" r="9" fill="rgba(0,166,166,0.35)"/>
+              <circle cx="370" cy="165" r="9" fill="rgba(11,60,93,0.2)"/>
+              <circle cx="355" cy="348" r="8" fill="rgba(0,166,166,0.22)"/>
+              <circle cx="65" cy="348" r="8" fill="rgba(11,60,93,0.18)"/>
+              <circle r="4" fill="#00A6A6" opacity="0.65">
+                <animateMotion dur="9s" repeatCount="indefinite">
+                  <mpath href="#orb1"/>
+                </animateMotion>
+              </circle>
+              <circle r="3" fill="#0B3C5D" opacity="0.45">
+                <animateMotion dur="13s" repeatCount="indefinite" begin="3s">
+                  <mpath href="#orb2"/>
+                </animateMotion>
+              </circle>
+              <path id="orb1" d="M 210 30 A 180 180 0 1 1 209 30" fill="none"/>
+              <path id="orb2" d="M 210 70 A 140 140 0 1 0 209 70" fill="none"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <div class="trust-strip">
+    <div class="trust-inner">
+      <span class="trust-label">Trusted by</span>
+      <div class="trust-logos">
+        <span class="trust-logo-item">NovaBiotech AG</span>
+        <span class="trust-logo-item">Meridian CDMO</span>
+        <span class="trust-logo-item">HelixPharma</span>
+        <span class="trust-logo-item">BioScale Inc.</span>
+        <span class="trust-logo-item">Apex Life Sciences</span>
+        <span class="trust-logo-item">Celeron Therapeutics</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header center fade-up">
+        <div class="eyebrow">What We Do</div>
+        <h2>Comprehensive Consulting Across the Pharma Lifecycle</h2>
+        <p>Specialized expertise at every stage — from early-stage R&amp;D through commercial manufacturing and market entry.</p>
+      </div>
+      <div class="services-grid fade-up" style="transition-delay:0.12s">
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div>
+          <h3>R&amp;D &amp; CMC Consulting</h3>
+          <p>Strategic guidance on drug development, formulation, analytical methods, and CMC documentation for regulatory submissions.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+          <h3>GMP &amp; Regulatory Compliance</h3>
+          <p>End-to-end GMP audit readiness, gap analysis, and regulatory strategy for FDA, EMA, and CDSCO submissions.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg></div>
+          <h3>CDMO Selection &amp; Management</h3>
+          <p>Systematic CDMO evaluation, due diligence, and partnership governance to ensure quality and compliance alignment.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg></div>
+          <h3>Manufacturing Scale-Up</h3>
+          <p>Process transfer, tech transfer oversight, and scale-up validation from pilot to commercial manufacturing.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5m14 0h2M5 21H3M10 9h4M10 13h4M10 17h4"/></svg></div>
+          <h3>Infrastructure Planning</h3>
+          <p>Greenfield and brownfield facility design advisory, cleanroom specifications, and cGMP-compliant facility layouts.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+          <h3>Market Strategy &amp; Entry</h3>
+          <p>Competitive intelligence, market access planning, licensing strategy, and commercialization roadmaps.</p>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:2.5rem;">
+        <button class="btn btn-outline" onclick="go('services')">View All Services →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFFERENTIATORS -->
+  <section class="section" style="background:var(--bg-alt);">
+    <div class="container">
+      <div class="diff-grid">
+        <div class="fade-up">
+          <div class="eyebrow" style="margin-bottom:0.75rem;">Why PharmaAxis</div>
+          <h2 style="color:var(--navy); margin-bottom:0.75rem;">Built for the Complexity of Modern Pharma</h2>
+          <p style="color:var(--text-muted);">We combine deep regulatory knowledge with operational execution — something generalist consultancies cannot offer.</p>
+          <ul class="diff-list">
+            <li class="diff-item">
+              <div class="diff-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></div>
+              <div class="diff-item-text"><h4>Technical Depth</h4><p>Our consultants hold advanced degrees and 15+ years of hands-on industry experience across pharma and biotech.</p></div>
+            </li>
+            <li class="diff-item">
+              <div class="diff-icon-wrap"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+              <div class="diff-item-text"><h4>Regulatory Expertise</h4><p>Former FDA, EMA, and CDSCO reviewers on staff. We don't advise on compliance — we've enforced it.</p></div>
+            </li>
+            <li class="diff-item">
+              <div class="diff-icon-wrap"><svg viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></div>
+              <div class="diff-item-text"><h4>End-to-End Lifecycle</h4><p>A single partner from pre-IND through post-market surveillance. No handoffs, no gaps, complete accountability.</p></div>
+            </li>
+          </ul>
+        </div>
+        <div class="fade-up" style="transition-delay:0.2s">
+          <div class="lifecycle-card">
+            <div style="font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-light); margin-bottom:1.5rem;">Pharmaceutical Lifecycle Coverage</div>
+            <div style="position:relative; padding-left:0;">
+              <div style="position:absolute; left:20px; top:28px; bottom:28px; width:2px; background:linear-gradient(to bottom, var(--navy), var(--teal)); z-index:0;"></div>
+              <div class="lifecycle-step">
+                <div class="lc-num" style="background:var(--navy);">01</div>
+                <div><div class="lc-title">Discovery &amp; Pre-IND</div><div class="lc-sub">Formulation strategy, target selection</div></div>
+              </div>
+              <div class="lifecycle-step">
+                <div class="lc-connector"></div>
+                <div class="lc-num" style="background:#1B5C87;">02</div>
+                <div><div class="lc-title">Clinical Development</div><div class="lc-sub">Phase I–III CMC, regulatory submissions</div></div>
+              </div>
+              <div class="lifecycle-step">
+                <div class="lc-connector"></div>
+                <div class="lc-num" style="background:#0D7A8A;">03</div>
+                <div><div class="lc-title">Manufacturing Scale-Up</div><div class="lc-sub">Process validation, CDMO oversight</div></div>
+              </div>
+              <div class="lifecycle-step">
+                <div class="lc-connector"></div>
+                <div class="lc-num" style="background:#008888;">04</div>
+                <div><div class="lc-title">Regulatory Approval</div><div class="lc-sub">NDA/BLA, MA applications, GMP audits</div></div>
+              </div>
+              <div class="lifecycle-step">
+                <div class="lc-connector"></div>
+                <div class="lc-num" style="background:var(--teal);">05</div>
+                <div><div class="lc-title">Commercialization</div><div class="lc-sub">Market entry, supply chain, post-market</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header center fade-up">
+        <div class="eyebrow">Our Approach</div>
+        <h2>A Structured Engagement Process</h2>
+      </div>
+      <div class="process-steps fade-up" style="transition-delay:0.12s">
+        <div class="process-step">
+          <div class="step-num sn1">01</div>
+          <h3>Assess</h3>
+          <p>Current state review, gap analysis, risk identification, and regulatory landscape mapping.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num sn2">02</div>
+          <h3>Design</h3>
+          <p>Strategy development, roadmap construction, and solution architecture tailored to your pipeline.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num sn3">03</div>
+          <h3>Implement</h3>
+          <p>Hands-on execution, documentation, training, and regulatory submission management.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num sn4">04</div>
+          <h3>Optimize</h3>
+          <p>Performance monitoring, continuous improvement, and ongoing compliance management.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE PREVIEWS -->
+  <section class="section" style="background:var(--bg-alt);">
+    <div class="container">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:0; flex-wrap:wrap; gap:1rem;" class="fade-up">
+        <div class="section-header">
+          <div class="eyebrow">Results</div>
+          <h2>Client Success Stories</h2>
+        </div>
+        <button class="btn btn-ghost" onclick="go('cases')">All Case Studies →</button>
+      </div>
+      <div class="case-grid fade-up" style="transition-delay:0.12s">
+        <div class="case-card">
+          <div class="case-header"><span class="case-tag">Biotech</span><h3>Accelerating IND Submission for a Novel Oncology Asset</h3></div>
+          <div class="case-body">
+            <div class="case-row"><div class="case-row-label">Challenge</div><div class="case-row-text">CMC package incomplete; FDA pre-IND feedback unaddressed after 14 months.</div></div>
+            <div class="case-row"><div class="case-row-label">Solution</div><div class="case-row-text">Full CMC remediation, analytical method validation, and IND module authoring.</div></div>
+            <div class="case-metric">6 months<span>to successful IND acceptance</span></div>
+            <div class="case-link" onclick="go('cases')">Read More →</div>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="case-header"><span class="case-tag">CDMO</span><h3>GMP Remediation for Pre-FDA Inspection Readiness</h3></div>
+          <div class="case-body">
+            <div class="case-row"><div class="case-row-label">Challenge</div><div class="case-row-text">47 open CAPA items and inadequate documentation ahead of FDA inspection.</div></div>
+            <div class="case-row"><div class="case-row-label">Solution</div><div class="case-row-text">CAPA closure, SOP redevelopment, training, and mock inspection program.</div></div>
+            <div class="case-metric">Zero<span>FDA 483 observations at inspection</span></div>
+            <div class="case-link" onclick="go('cases')">Read More →</div>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="case-header"><span class="case-tag">Manufacturing</span><h3>Clinical to Commercial Scale-Up for Injectable Biologic</h3></div>
+          <div class="case-body">
+            <div class="case-row"><div class="case-row-label">Challenge</div><div class="case-row-text">Process transfer to 2,000L commercial bioreactor with tight 18-month deadline.</div></div>
+            <div class="case-row"><div class="case-row-label">Solution</div><div class="case-row-text">Tech transfer governance, process characterization, and PPQ oversight.</div></div>
+            <div class="case-metric">94%<span>process yield at commercial scale</span></div>
+            <div class="case-link" onclick="go('cases')">Read More →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section cta-section">
+    <div class="cta-bg-dots"></div>
+    <div class="container">
+      <div class="cta-inner fade-up">
+        <div class="eyebrow" style="justify-content:center; color:rgba(255,255,255,0.4); margin-bottom:1rem;"><span style="display:block; width:24px; height:2px; background:rgba(255,255,255,0.25);"></span>Get Started</div>
+        <h2>Let's Accelerate Your Next Milestone</h2>
+        <p>Whether navigating regulatory hurdles, scaling manufacturing, or entering new markets — our team is ready to engage.</p>
+        <div class="cta-actions">
+          <button class="btn btn-white" onclick="go('contact')">Book Consultation →</button>
+          <button class="btn" style="border:1.5px solid rgba(255,255,255,0.3); color:#fff; background:transparent;" onclick="go('services')">View Services</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+<!-- ═══════════ END HOME ═══════════ -->
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<div id="p-about" class="page-section">
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <div class="eyebrow" style="margin-bottom:1rem;">About Us</div>
+      <h1 style="color:var(--navy); max-width:680px; margin-bottom:1rem;">Specialized Expertise. Measurable Outcomes.</h1>
+      <p style="color:var(--text-muted); max-width:560px; font-size:1.05rem;">PharmaAxis is a specialist consultancy serving pharmaceutical, biotechnology, and life sciences organizations across the development and commercialization continuum.</p>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <div class="eyebrow" style="margin-bottom:1rem;">Our Story</div>
+          <h2 style="color:var(--navy); margin-bottom:1rem;">Founded on the Principle That Pharma Deserves Specialist Advisors</h2>
+          <p style="color:var(--text-muted); margin-bottom:1rem;">Founded in 2006 by a team of former regulatory scientists and manufacturing executives, PharmaAxis was built to address a gap: the largest consulting firms lacked deep pharma-specific expertise, while niche players lacked scale.</p>
+          <p style="color:var(--text-muted); margin-bottom:2rem;">Today, our 65+ consultants serve clients across North America, Europe, India, and Southeast Asia — from early-stage biotech startups to established multinational pharma organizations.</p>
+          <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="go('contact')">Work With Us</button>
+            <button class="btn btn-outline" onclick="go('services')">Our Services</button>
+          </div>
+        </div>
+        <div class="about-stats">
+          <div class="about-stat"><div class="about-stat-num">65+</div><div class="about-stat-label">Expert Consultants</div></div>
+          <div class="about-stat"><div class="about-stat-num">200+</div><div class="about-stat-label">Projects Delivered</div></div>
+          <div class="about-stat"><div class="about-stat-num">40+</div><div class="about-stat-label">Countries Served</div></div>
+          <div class="about-stat"><div class="about-stat-num">18yr</div><div class="about-stat-label">Industry Experience</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" style="background:var(--bg-alt);">
+    <div class="container">
+      <div class="section-header center">
+        <div class="eyebrow">Leadership</div>
+        <h2>Our Team</h2>
+        <p>Former agency scientists, manufacturing executives, and biotech operators.</p>
+      </div>
+      <div class="team-grid" style="margin-top:2.5rem;">
+        <div class="team-card">
+          <div class="team-avatar" style="background:var(--navy);">DR</div>
+          <h4>Dr. Rajiv Mehta</h4>
+          <p style="color:var(--teal); font-weight:600; font-size:0.84rem; margin-bottom:4px;">Managing Director</p>
+          <p>Former Senior Reviewer, CDSCO. 22 years in pharma regulatory science.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" style="background:var(--teal);">SC</div>
+          <h4>Dr. Sarah Chen</h4>
+          <p style="color:var(--teal); font-weight:600; font-size:0.84rem; margin-bottom:4px;">Head of CMC Practice</p>
+          <p>PhD Pharmaceutical Sciences. Former VP CMC at Pfizer. 18 years experience.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar" style="background:#1B5C87;">AK</div>
+          <h4>Arjun Krishnan</h4>
+          <p style="color:var(--teal); font-weight:600; font-size:0.84rem; margin-bottom:4px;">Head of Manufacturing</p>
+          <p>Former VP Operations, Biocon. Specialist in biologics scale-up and GMP compliance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- ═══════════ END ABOUT ═══════════ -->
+
+<!-- ═══════════ SERVICES ═══════════ -->
+<div id="p-services" class="page-section">
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <div class="eyebrow" style="margin-bottom:1rem;">Services</div>
+      <h1 style="color:var(--navy); max-width:680px; margin-bottom:1rem;">Deep Expertise. Defined Outcomes.</h1>
+      <p style="color:var(--text-muted); max-width:560px; font-size:1.05rem;">Each engagement is scoped with clear deliverables, defined timelines, and measurable outcomes.</p>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="service-detail">
+        <div class="sdg">
+          <div>
+            <div class="eyebrow" style="margin-bottom:0.75rem;">01</div>
+            <h2>R&amp;D &amp; CMC Consulting</h2>
+            <p>Comprehensive drug development support from candidate selection through regulatory submission. Our CMC specialists cover formulation, analytical development, stability, and full Module 3 documentation.</p>
+            <button class="btn btn-primary" onclick="go('contact')">Enquire About This Service</button>
+          </div>
+          <ul class="sbullets">
+            <li>Pre-formulation and formulation development strategy</li>
+            <li>Analytical method development and validation (ICH Q2)</li>
+            <li>Drug substance and drug product characterization</li>
+            <li>Stability study design and data evaluation (ICH Q1)</li>
+            <li>CTD Module 3 authoring and quality review</li>
+            <li>CRO/CMO selection and technical oversight</li>
+            <li>IND, NDA, MAA, and ANDA technical support</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-detail">
+        <div class="sdg rev">
+          <div>
+            <div class="eyebrow" style="margin-bottom:0.75rem;">02</div>
+            <h2>GMP &amp; Regulatory Compliance</h2>
+            <p>From pre-inspection readiness to CAPA management and quality system overhaul. Our team includes former FDA and EMA inspectors who understand exactly what regulators look for.</p>
+            <button class="btn btn-primary" onclick="go('contact')">Enquire About This Service</button>
+          </div>
+          <ul class="sbullets">
+            <li>GMP gap analysis and remediation planning</li>
+            <li>Mock FDA, EMA, and CDSCO inspection programs</li>
+            <li>CAPA development, implementation, and verification</li>
+            <li>Quality Management System design and implementation</li>
+            <li>Change control and deviation management systems</li>
+            <li>Regulatory strategy for complex product types</li>
+            <li>Inspection response and commitments management</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-detail">
+        <div class="sdg">
+          <div>
+            <div class="eyebrow" style="margin-bottom:0.75rem;">03</div>
+            <h2>CDMO Selection &amp; Management</h2>
+            <p>Objective, structured CDMO evaluation frameworks backed by deep operational knowledge. We manage the entire partner selection lifecycle and provide ongoing oversight governance.</p>
+            <button class="btn btn-primary" onclick="go('contact')">Enquire About This Service</button>
+          </div>
+          <ul class="sbullets">
+            <li>CDMO landscape mapping and shortlisting</li>
+            <li>Technical due diligence and audit programs</li>
+            <li>RFP development and proposal evaluation</li>
+            <li>Quality and technical agreement development</li>
+            <li>Ongoing CDMO performance governance frameworks</li>
+            <li>Multi-source strategy and risk mitigation</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-detail">
+        <div class="sdg rev">
+          <div>
+            <div class="eyebrow" style="margin-bottom:0.75rem;">04</div>
+            <h2>Manufacturing Scale-Up</h2>
+            <p>Hands-on process transfer and scale-up support from laboratory through commercial manufacturing, focusing on minimizing cycle time and maximizing first-pass success.</p>
+            <button class="btn btn-primary" onclick="go('contact')">Enquire About This Service</button>
+          </div>
+          <ul class="sbullets">
+            <li>Process characterization and design of experiments (DoE)</li>
+            <li>Technology transfer protocol design and execution oversight</li>
+            <li>Process validation (Stage 1–3) strategy and management</li>
+            <li>Equipment qualification (IQ/OQ/PQ) programs</li>
+            <li>Cleaning validation strategy and execution</li>
+            <li>Batch record development and manufacturing support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- ═══════════ END SERVICES ═══════════ -->
+
+<!-- ═══════════ CASE STUDIES ═══════════ -->
+<div id="p-cases" class="page-section">
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <div class="eyebrow" style="margin-bottom:1rem;">Case Studies</div>
+      <h1 style="color:var(--navy); max-width:680px; margin-bottom:1rem;">Documented Impact Across Pharma &amp; Biotech</h1>
+      <p style="color:var(--text-muted); max-width:560px; font-size:1.05rem;">Real outcomes from real engagements. Each case study reflects our commitment to measurable results.</p>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:2.5rem;">
+        <span style="padding:6px 16px; background:var(--navy); color:#fff; border-radius:100px; font-size:0.78rem; font-weight:600; cursor:pointer;">All</span>
+        <span style="padding:6px 16px; background:var(--bg-alt); color:var(--text-muted); border-radius:100px; font-size:0.78rem; font-weight:500; cursor:pointer; border:1px solid var(--border);">Biotech</span>
+        <span style="padding:6px 16px; background:var(--bg-alt); color:var(--text-muted); border-radius:100px; font-size:0.78rem; font-weight:500; cursor:pointer; border:1px solid var(--border);">CDMO</span>
+        <span style="padding:6px 16px; background:var(--bg-alt); color:var(--text-muted); border-radius:100px; font-size:0.78rem; font-weight:500; cursor:pointer; border:1px solid var(--border);">Manufacturing</span>
+        <span style="padding:6px 16px; background:var(--bg-alt); color:var(--text-muted); border-radius:100px; font-size:0.78rem; font-weight:500; cursor:pointer; border:1px solid var(--border);">Regulatory</span>
+      </div>
+      <div class="case-grid">
+        <div class="case-card">
+          <div class="case-header"><span class="case-tag">Biotech</span><h3>Accelerating IND Submission for a Novel Oncology Asset</h3></div>
+          <div class="case-body">
+            <div class="case-row"><div class="case-row-label">Challenge</div><div class="case-row-text">CMC package incomplete; FDA pre-IND feedback unaddressed for 14 months.</div></div>
+            <div class="case-row"><div class="case-row-label">Solution</div><div class="case-row-text">Full CMC remediation, analytical method validation, and Module 3 authoring.</div></div>
+            <div class="case-row"><div class="case-row-label">Results</div><div class="case-row-text">IND accepted without clinical hold. Phase I trial initiated on schedule.</div></div>
+            <div class="case-metric">6 months<span>to successful IND acceptance</span></div>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="case-header"><span class="case-tag">CDMO</span><h3>GMP Remediation for Pre-FDA Inspection Readiness</h3></div>
+          <div class="case-body">
+            <div class="case-row"><div class="case-row-label">Challenge</div><div class="case-row-text">47 open CAPA items and unqualified personnel ahead of FDA inspection.</div></div>
+            <div class="case-row"><div class="case-row-label">Solution</div><div class="case-row-text">CAPA closure, SOP redevelopment, training, and full mock inspection.</div></div>
+            <div class="case-row"><div class="case-row-label">Results</div><div class="case-row-text">FDA inspection completed. Zero Form 483 observations issued.</div></div>
+            <div class="case-metric">0<span>FDA 483 observations</span></div>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="case-header"><span class="case-tag">Manufacturing</span><h3>Clinical to Commercial Scale-Up for Injectable Biologic</h3></div>
+          <div class="case-body">
+            <div class="case-row"><div class="case-row-label">Challenge</div><div class="case-row-text">Process transfer to 2,000L commercial bioreactor with 18-month deadline.</div></div>
+            <div class="case-row"><div class="case-row-label">Solution</div><div class="case-row-text">Tech transfer governance, process characterization, and PPQ execution oversight.</div></div>
+            <div class="case-row"><div class="case-row-label">Results</div><div class="case-row-text">On-time commercial launch with 94% process yield, exceeding internal targets.</div></div>
+            <div class="case-metric">94%<span>process yield at commercial scale</span></div>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="case-header"><span class="case-tag">Regulatory</span><h3>EMA Marketing Authorization for Biosimilar mAb</h3></div>
+          <div class="case-body">
+            <div class="case-row"><div class="case-row-label">Challenge</div><div class="case-row-text">First MAA submission for a biosimilar mAb. Internal team lacked EMA biosimilar experience.</div></div>
+            <div class="case-row"><div class="case-row-label">Solution</div><div class="case-row-text">EMA biosimilar strategy, comparability study design, and Module 3 authoring.</div></div>
+            <div class="case-row"><div class="case-row-label">Results</div><div class="case-row-text">MAA approved at first review cycle. Major objections avoided.</div></div>
+            <div class="case-metric">First cycle<span>EMA approval</span></div>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="case-header"><span class="case-tag">CDMO</span><h3>Greenfield Sterile Fill-Finish Facility Planning</h3></div>
+          <div class="case-body">
+            <div class="case-row"><div class="case-row-label">Challenge</div><div class="case-row-text">CDMO required complete facility design advisory for a new 15,000 sqft sterile manufacturing suite.</div></div>
+            <div class="case-row"><div class="case-row-label">Solution</div><div class="case-row-text">User requirements specification, cleanroom classification design, and HVAC strategy.</div></div>
+            <div class="case-row"><div class="case-row-label">Results</div><div class="case-row-text">Facility qualified and operational 3 months ahead of original projection.</div></div>
+            <div class="case-metric">–3 months<span>ahead of schedule</span></div>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="case-header"><span class="case-tag">Biotech</span><h3>CDMO Selection for Pediatric Oral Solid Dosage Product</h3></div>
+          <div class="case-body">
+            <div class="case-row"><div class="case-row-label">Challenge</div><div class="case-row-text">Startup biotech with no manufacturing relationships needed CDMO for Phase II/III clinical supply.</div></div>
+            <div class="case-row"><div class="case-row-label">Solution</div><div class="case-row-text">CDMO landscape mapping, 12-site audit program, and technical due diligence.</div></div>
+            <div class="case-row"><div class="case-row-label">Results</div><div class="case-row-text">Selected CDMO in 4 months. Phase II clinical supply manufactured on time and within budget.</div></div>
+            <div class="case-metric">4 months<span>to selected CDMO partner</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- ═══════════ END CASES ═══════════ -->
+
+<!-- ═══════════ INSIGHTS ═══════════ -->
+<div id="p-insights" class="page-section">
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <div class="eyebrow" style="margin-bottom:1rem;">Insights</div>
+      <h1 style="color:var(--navy); max-width:680px; margin-bottom:1rem;">Industry Analysis &amp; Technical Perspectives</h1>
+      <p style="color:var(--text-muted); max-width:560px; font-size:1.05rem;">Original commentary from our specialists on regulatory developments, manufacturing trends, and strategic topics.</p>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="feat-article">
+        <div>
+          <span class="feat-tag">Featured</span>
+          <h2>The Evolving ICH Q12 Landscape: What Pharma Manufacturers Need to Know in 2025</h2>
+          <p>As post-approval change management protocols become mandatory across major markets, manufacturing organizations must reassess their change control infrastructure.</p>
+          <div class="feat-meta">Dr. Rajiv Mehta · May 2025 · 8 min read</div>
+          <button class="btn btn-primary" style="margin-top:1.25rem;">Read Article →</button>
+        </div>
+        <div style="background:linear-gradient(135deg, var(--navy), var(--teal)); border-radius:var(--radius-lg); height:280px; display:flex; align-items:center; justify-content:center;">
+          <svg width="110" height="110" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="50" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <circle cx="60" cy="60" r="35" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+            <circle cx="60" cy="60" r="18" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+            <text x="60" y="66" text-anchor="middle" fill="white" font-size="13" font-family="DM Serif Display, serif">ICH</text>
+            <circle cx="60" cy="10" r="6" fill="rgba(255,255,255,0.55)"/><circle cx="110" cy="60" r="6" fill="rgba(255,255,255,0.4)"/><circle cx="60" cy="110" r="6" fill="rgba(255,255,255,0.3)"/><circle cx="10" cy="60" r="6" fill="rgba(255,255,255,0.5)"/>
+            <line x1="60" y1="16" x2="60" y2="42" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><line x1="104" y1="60" x2="78" y2="60" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><line x1="60" y1="104" x2="60" y2="78" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><line x1="16" y1="60" x2="42" y2="60" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+          </svg>
+        </div>
+      </div>
+      <div class="blog-grid">
+        <div class="blog-card">
+          <div class="blog-img" style="background:linear-gradient(135deg, var(--navy), #1B5C87);">
+            <svg width="56" height="56" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="24" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><circle cx="30" cy="30" r="12" fill="rgba(255,255,255,0.12)"/><line x1="30" y1="6" x2="30" y2="18" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><line x1="54" y1="30" x2="42" y2="30" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><line x1="30" y1="54" x2="30" y2="42" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><line x1="6" y1="30" x2="18" y2="30" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/></svg>
+          </div>
+          <div class="blog-body">
+            <div class="blog-tag">Regulatory</div>
+            <h3>FDA's DSCSA Enforcement: What Manufacturers Must Act On Now</h3>
+            <p>The November 2024 enforcement deadline marks a turning point for supply chain traceability requirements.</p>
+            <div class="blog-meta">April 2025 · 6 min read</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img" style="background:linear-gradient(135deg, #1B5C87, var(--teal));">
+            <svg width="56" height="56" viewBox="0 0 60 60" fill="none"><rect x="10" y="14" width="40" height="32" rx="4" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><line x1="18" y1="24" x2="42" y2="24" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/><line x1="18" y1="31" x2="36" y2="31" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><line x1="18" y1="38" x2="28" y2="38" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/></svg>
+          </div>
+          <div class="blog-body">
+            <div class="blog-tag">CMC</div>
+            <h3>Continuous Manufacturing: Regulatory Considerations for Small Molecule Developers</h3>
+            <p>A practical review of ICH Q13 guidelines and what they mean for your regulatory strategy.</p>
+            <div class="blog-meta">March 2025 · 9 min read</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img" style="background:linear-gradient(135deg, #0D7A8A, var(--navy));">
+            <svg width="56" height="56" viewBox="0 0 60 60" fill="none"><circle cx="20" cy="20" r="8" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><circle cx="40" cy="20" r="8" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/><circle cx="30" cy="38" r="8" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><line x1="28" y1="20" x2="32" y2="20" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/><line x1="23" y1="27" x2="27" y2="32" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><line x1="37" y1="27" x2="33" y2="32" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/></svg>
+          </div>
+          <div class="blog-body">
+            <div class="blog-tag">Biotech</div>
+            <h3>Selecting a CDMO for Biologics: A Framework for Early-Stage Companies</h3>
+            <p>Critical questions to ask — and red flags to watch for — during CDMO due diligence.</p>
+            <div class="blog-meta">February 2025 · 7 min read</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img" style="background:linear-gradient(135deg, var(--navy), #1B5C87);">
+            <svg width="56" height="56" viewBox="0 0 60 60" fill="none"><path d="M12 46 L12 20 L24 32 L36 14 L48 34" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="48" cy="34" r="4" fill="rgba(0,196,196,0.8)"/></svg>
+          </div>
+          <div class="blog-body">
+            <div class="blog-tag">Manufacturing</div>
+            <h3>Process Analytical Technology: Implementation Strategies for Solid Dose</h3>
+            <p>How leading manufacturers integrate PAT to reduce cycle time and improve batch release.</p>
+            <div class="blog-meta">January 2025 · 11 min read</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img" style="background:linear-gradient(135deg, var(--teal), #0D7A8A);">
+            <svg width="56" height="56" viewBox="0 0 60 60" fill="none"><rect x="12" y="12" width="36" height="36" rx="6" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/><line x1="22" y1="30" x2="38" y2="30" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/><line x1="30" y1="22" x2="30" y2="38" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/></svg>
+          </div>
+          <div class="blog-body">
+            <div class="blog-tag">Strategy</div>
+            <h3>Building a Regulatory Affairs Function: Insource vs. Outsource Framework</h3>
+            <p>A structured approach to evaluating whether to build internal RA capability or engage specialists.</p>
+            <div class="blog-meta">December 2024 · 5 min read</div>
+          </div>
+        </div>
+        <div class="blog-card">
+          <div class="blog-img" style="background:linear-gradient(135deg, #1B5C87, var(--navy));">
+            <svg width="56" height="56" viewBox="0 0 60 60" fill="none"><path d="M14 36 C 20 14, 40 14, 46 36" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none"/><circle cx="14" cy="36" r="5" fill="rgba(255,255,255,0.3)"/><circle cx="46" cy="36" r="5" fill="rgba(0,196,196,0.7)"/><circle cx="30" cy="18" r="5" fill="rgba(255,255,255,0.4)"/></svg>
+          </div>
+          <div class="blog-body">
+            <div class="blog-tag">Regulatory</div>
+            <h3>India's Amended New Drugs Rules: Implications for Global Pharma Manufacturers</h3>
+            <p>Analysis of recent CDSCO regulatory updates and their impact on registration timelines.</p>
+            <div class="blog-meta">November 2024 · 8 min read</div>
+          </div>
+        </div>
+      </div>
+      <!-- Lead Magnet -->
+      <div style="background:var(--bg-alt); border:1px solid var(--border); border-radius:var(--radius-lg); padding:2.5rem; margin-top:3rem; display:grid; grid-template-columns:1fr auto; gap:2rem; align-items:center; flex-wrap:wrap;">
+        <div>
+          <div style="font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--teal); margin-bottom:0.5rem;">Free Resource</div>
+          <h3 style="color:var(--navy); margin-bottom:0.5rem;">GMP Audit Readiness Checklist</h3>
+          <p style="color:var(--text-muted); font-size:0.88rem;">A 47-point checklist used by our consultants to prepare clients for FDA and EMA GMP inspections.</p>
+        </div>
+        <button class="btn btn-primary" onclick="go('contact')" style="white-space:nowrap; flex-shrink:0;">Download Free →</button>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- ═══════════ END INSIGHTS ═══════════ -->
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<div id="p-contact" class="page-section">
+  <div class="page-hero">
+    <div class="container page-hero-inner">
+      <div class="eyebrow" style="margin-bottom:1rem;">Contact</div>
+      <h1 style="color:var(--navy); max-width:680px; margin-bottom:1rem;">Let's Start a Conversation</h1>
+      <p style="color:var(--text-muted); max-width:560px; font-size:1.05rem;">Initial consultations are complimentary. We'll assess your needs and propose a structured engagement within 5 business days.</p>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <div>
+          <h2 style="color:var(--navy); margin-bottom:1rem;">Get in Touch</h2>
+          <p style="color:var(--text-muted); margin-bottom:2rem;">Our team is available Monday–Friday, 9AM–6PM IST and 9AM–5PM EST.</p>
+          <div class="cdetail">
+            <div class="cdetail-icon"><svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+            <div><h4>Email</h4><p>contact@pharmaaxis.com</p></div>
+          </div>
+          <div class="cdetail">
+            <div class="cdetail-icon"><svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
+            <div><h4>Phone</h4><p>+91 (044) 4000-0000</p></div>
+          </div>
+          <div class="cdetail">
+            <div class="cdetail-icon"><svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+            <div><h4>Location</h4><p>Chennai, India · Serving clients globally</p></div>
+          </div>
+          <div style="margin-top:2rem; padding:1.5rem; background:var(--teal-pale); border-radius:var(--radius-lg); border:1px solid rgba(0,166,166,0.15);">
+            <div style="font-family:'Space Mono',monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--teal); margin-bottom:0.5rem;">Free Resource</div>
+            <h4 style="color:var(--navy); margin-bottom:0.4rem;">GMP Audit Checklist</h4>
+            <p style="font-size:0.82rem; color:var(--text-muted);">Complete the form and request our 47-point GMP audit readiness checklist.</p>
+          </div>
+        </div>
+        <div class="cform">
+          <h3 style="color:var(--navy); margin-bottom:1.75rem;">Book a Consultation</h3>
+          <div class="frow">
+            <div class="fg"><label>Full Name</label><input type="text" placeholder="Dr. Jane Smith"></div>
+            <div class="fg"><label>Company</label><input type="text" placeholder="NovaBiotech AG"></div>
+          </div>
+          <div class="fg"><label>Email Address</label><input type="email" placeholder="jane@company.com"></div>
+          <div class="fg">
+            <label>Service Required</label>
+            <select>
+              <option value="">Select a service area</option>
+              <option>R&amp;D &amp; CMC Consulting</option>
+              <option>GMP &amp; Regulatory Compliance</option>
+              <option>CDMO Selection &amp; Management</option>
+              <option>Manufacturing Scale-Up</option>
+              <option>Infrastructure Planning</option>
+              <option>Market Strategy &amp; Entry</option>
+              <option>Other / Not Sure</option>
+            </select>
+          </div>
+          <div class="fg"><label>Message</label><textarea placeholder="Describe your project, timeline, and key challenges. We'll respond within 1 business day."></textarea></div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:1.5rem;">
+            <input type="checkbox" id="ckl" style="width:auto; height:auto; flex-shrink:0;">
+            <label for="ckl" style="font-size:0.81rem; color:var(--text-muted); cursor:pointer; margin:0; font-weight:400;">Also send me the free GMP Audit Readiness Checklist</label>
+          </div>
+          <button class="btn btn-primary" style="width:100%; justify-content:center;">Submit Enquiry →</button>
+          <p style="font-size:0.74rem; color:var(--text-light); margin-top:1rem; text-align:center;">We typically respond within 1 business day. Your information is never shared.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- ═══════════ END CONTACT ═══════════ -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <div class="lm">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="4" r="2.5" fill="#fff"/><circle cx="4" cy="14" r="2.5" fill="#fff"/><circle cx="16" cy="14" r="2.5" fill="#fff"/><line x1="10" y1="6.5" x2="4" y2="11.5" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/><line x1="10" y1="6.5" x2="16" y2="11.5" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/><line x1="4" y1="14" x2="16" y2="14" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/></svg>
+          </div>
+          <span>PharmaAxis</span>
+        </div>
+        <p class="footer-tagline">Precision consulting for pharmaceutical and biotechnology organizations navigating complex regulatory and manufacturing challenges.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul class="flinks">
+          <li><a onclick="go('services')">R&amp;D &amp; CMC</a></li>
+          <li><a onclick="go('services')">GMP Compliance</a></li>
+          <li><a onclick="go('services')">CDMO Selection</a></li>
+          <li><a onclick="go('services')">Scale-Up</a></li>
+          <li><a onclick="go('services')">Infrastructure</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul class="flinks">
+          <li><a onclick="go('about')">About Us</a></li>
+          <li><a onclick="go('cases')">Case Studies</a></li>
+          <li><a onclick="go('insights')">Insights</a></li>
+          <li><a onclick="go('contact')">Contact</a></li>
+          <li><a>Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <div class="fci"><svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg><span>contact@pharmaaxis.com</span></div>
+        <div class="fci"><svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg><span>+91 (044) 4000-0000</span></div>
+        <div class="fci"><svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg><span>Chennai, India · Global Services</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 PharmaAxis Consulting. All rights reserved.</span>
+      <div style="display:flex; gap:12px;">
+        <a href="#" class="social-link" title="LinkedIn"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/910000000000" class="wa-float" title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+function go(id) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('p-' + id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(initObs, 100);
+}
+
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
+});
+
+function toggleMob() {
+  const m = document.getElementById('mob-menu');
+  m.style.display = m.style.display === 'none' ? 'block' : 'none';
+}
+
+function initObs() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up:not(.vis)').forEach(el => obs.observe(el));
+}
+initObs();
+</script>
+</body>
+</html>
